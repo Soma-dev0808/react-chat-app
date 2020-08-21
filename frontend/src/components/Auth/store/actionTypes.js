@@ -1,0 +1,3 @@
+export const AUTH_PENDING = "AUTH_PENDING"
+export const AUTH_SUCCEED = "AUTH_SUCCEED"
+export const AUTH_FAILED = "AUTH_FAILED"
