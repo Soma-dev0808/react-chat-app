@@ -1,100 +1,79 @@
-import * as actions from "../store/actionCreator"
+import firebase from "firebase/app";
+import { db, auth } from "../../../service/firebase";
+import constants from "../../../utils/constants";
+import { convertFBApiResponse } from "../../../utils/utilities";
 
-import firebase from "firebase/app"
-import { db, auth } from "../../../service/firebase"
-import constants from "../../../service/constants"
+export async function fetchUser(roomName) {
+  const { dbRoomCollection, roomNotExsistsError, fetchUserError } = constants;
 
-export function fetchUser(roomName) {
-    const { 
-        dbRoomCollection, 
-        roomNotExsistsError, 
-        fetchUserError } = constants
+  try {
+    const checkRoom = await db.collection(dbRoomCollection).doc(roomName).get();
 
-    return async (dispatch) => {
-        dispatch(actions.requestFetchUser())
-        try {
-            const checkRoom = await db
-                                    .collection(dbRoomCollection)
-                                    .doc(roomName)
-                                    .get()
-
-            if(!checkRoom.exists) return dispatch(actions.fetchUserFailed(roomNotExsistsError))
-
-            const user =  await checkRoom
-                                .data()
-                                .users
-                                .find(user => user.email === auth.currentUser.email)
-
-            // Save user name to reducer
-            user
-            ? dispatch(actions.fetchUserSucceed(user.name))
-            : dispatch(actions.fetchUserFailed(fetchUserError))
-        } catch (error) {
-            console.log(error)
-            dispatch(actions.fetchUserFailed(fetchUserError))
-        }
-
+    if (!checkRoom.exists) {
+      return convertFBApiResponse(false, roomNotExsistsError);
     }
+
+    const user = await checkRoom
+      .data()
+      .users.find((user) => user.email === auth.currentUser.email);
+
+    // Save user name to reducer
+    return convertFBApiResponse(true, user);
+  } catch (error) {
+    return convertFBApiResponse(false, fetchUserError);
+  }
 }
 
-export function fetchMessages(roomName) {
-    const { 
-        dbRoomCollection, 
-        dbChatCollection, 
-        dbOrderByCreatedDate, 
-        ascOrder, 
-        fetchMessageError} = constants
+export async function fetchMessages(roomName) {
+  const {
+    dbRoomCollection,
+    dbChatCollection,
+    dbOrderByCreatedDate,
+    ascOrder,
+    fetchMessageError,
+  } = constants;
 
-    return async (dispatch) => {
-        dispatch(actions.requestFetchMessages())
-        try {
-            const chats = await db
-                                .collection(dbRoomCollection)
-                                .doc(roomName)
-                                .collection(dbChatCollection)
-                                .orderBy(dbOrderByCreatedDate, ascOrder)
-                                .get()
-            
-            if(chats.empty) return dispatch(actions.fetchMessagesSucceed([]))
+  try {
+    const chats = await db
+      .collection(dbRoomCollection)
+      .doc(roomName)
+      .collection(dbChatCollection)
+      .orderBy(dbOrderByCreatedDate, ascOrder)
+      .get();
 
-            let messageArray = []
+    let messageArray = [];
 
-            chats.forEach(chat => messageArray.push({
-                                            user: chat.data().user, 
-                                            text: chat.data().message
-                                        }))
-            dispatch(actions.fetchMessagesSucceed(messageArray))
-        } catch (error) {
-            dispatch(actions.fetchMessagesFailed(fetchMessageError))
-        }
-
+    if (chats.empty) {
+      return convertFBApiResponse(true, messageArray);
     }
+
+    chats.forEach((chat) =>
+      messageArray.push({
+        user: chat.data().user,
+        text: chat.data().message,
+      })
+    );
+
+    return convertFBApiResponse(true, messageArray);
+  } catch (error) {
+    return convertFBApiResponse(false, fetchMessageError);
+  }
 }
 
-export function saveMessages({ message, room, name}) {
-    const { 
-        dbRoomCollection, 
-        dbChatCollection, 
-        updateMessageError} = constants
+export async function saveMessages({ message, room, username }) {
+  const { dbRoomCollection, dbChatCollection, updateMessageError } = constants;
 
-    return async (dispatch) => {
-        dispatch(actions.requestUpdatehMessages())
-        db
-        .collection(dbRoomCollection)
-        .doc(room)
-        .collection(dbChatCollection)
-        .add({
-            message,
-            user: name,
-            date_created: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(res => {
-            dispatch(actions.updateMessagesSucceed())
-
-        })
-        .catch(err => {
-            console.log(err)
-            dispatch(actions.updateMessagesFailed(updateMessageError))
-        })
-    }
+  return db
+    .collection(dbRoomCollection)
+    .doc(room)
+    .collection(dbChatCollection)
+    .add({
+      message,
+      user: username,
+      date_created: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+    .then(() => convertFBApiResponse())
+    .catch((err) => {
+      return convertFBApiResponse(false, updateMessageError);
+    });
 }
