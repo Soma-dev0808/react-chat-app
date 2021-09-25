@@ -1,24 +1,29 @@
-import { routePath } from "../service/routes"
-import Chat from "../components/Chat/Chat"
-import Join from "../components/Join/Join"
-import Launch from "../components/Join/Launch"
-import SetUserName from "../components/Join/SetUserName"
+import Chat from "../components/Chat/Chat";
+import Join from "../components/Room/Join";
+import Launch from "../components/Room/Launch";
 
-export default [
-    {
-        path: routePath.chat,
-        Component: Chat
-    },
-    {
-        path: routePath.selectRoom,
-        Component: Join
-    },
-    {
-        path: routePath.createRoom,
-        Component: Launch
-    },
-    {
-        path: routePath.setUserName,
-        Component: SetUserName
-    }
-]
+// url paths for this application
+export const routePath = {
+  signIn: "/",
+  signUp: "/sign-up",
+  selectRoom: "/select-room",
+  createRoom: "/create-room",
+  chat: "/chat",
+};
+
+const routes = [
+  {
+    path: routePath.chat,
+    Component: Chat,
+  },
+  {
+    path: routePath.selectRoom,
+    Component: Join,
+  },
+  {
+    path: routePath.createRoom,
+    Component: Launch,
+  },
+];
+
+export default routes;
