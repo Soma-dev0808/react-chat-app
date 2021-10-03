@@ -1,6 +1,7 @@
 import React from "react";
 import StyledLink from "../../../common_components/Link/StyledLink";
 import { routePath } from "../../../router/router";
+import Button from "../../../common_components/Button/Button";
 import { en } from "../../../utils/language";
 
 import "../Room.scss";
@@ -28,7 +29,12 @@ const RoomForm = ({ isJoin, buttonAction }) => {
             />
           </div>
 
-          <button className="button mt-20">{buttonTitle}</button>
+          <Button
+            classnames="mt-20"
+            primary
+            buttonText={buttonTitle}
+            buttonType="submit"
+          />
         </form>
 
         <StyledLink to={roomLink} title={roomLinkTitle} />

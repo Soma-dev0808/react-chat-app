@@ -25,18 +25,18 @@
     border-bottom: 2px solid $color-white;
   }
 
-  .button {
-    color: $color-white;
-    text-transform: uppercase;
-    text-decoration: none;
-    background: $primary-color;
-    padding: $space-m;
-    border-radius: 5px;
-    display: inline-block;
-    border: none;
-    width: 100%;
-    cursor: pointer;
-  }
+  // .button {
+  //   color: $color-white;
+  //   text-transform: uppercase;
+  //   text-decoration: none;
+  //   background: $primary-color;
+  //   padding: $space-m;
+  //   border-radius: 5px;
+  //   display: inline-block;
+  //   border: none;
+  //   width: 100%;
+  //   cursor: pointer;
+  // }
 
   @include tablet {
     .auth-inner-container {

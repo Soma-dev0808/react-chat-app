@@ -65,7 +65,7 @@ describe("Header component test", () => {
 
     rerender(<Header />, { wrapper });
 
-    expect(getByText(en.LOG_IN)).toBeDefined();
+    expect(getByText(en.SIGN_IN)).toBeDefined();
   });
 
   test("Menu button click test", async () => {
