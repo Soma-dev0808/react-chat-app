@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ApiErrorContext } from "../../ApiErrorContext/ApiErrorContextProvider";
+import Button from "../../Button/Button";
 
 import "./ApiResponseBar.scss";
 
@@ -30,9 +31,9 @@ const ApiResponseBar = () => {
             ))}
           </ul>
         </div>
-        <button type="button" onClick={handleClearError}>
-          x
-        </button>
+        <div>
+          <Button size="xs" onClickEvent={handleClearError} buttonText={"x"} />
+        </div>
       </div>
     )
   );

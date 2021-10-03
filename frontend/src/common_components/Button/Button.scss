@@ -1,0 +1,34 @@
+@import "../Common.scss";
+
+.custom-button {
+  color: $color-white;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: $default-color;
+  padding: $space-m;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.button-primary {
+  background: $primary-color;
+}
+
+.button-danger {
+  background: $danger-color;
+}
+
+.button-xs {
+  padding: $space-xs;
+}
+
+.button-sm {
+  padding: $space-s;
+}
+
+.button-lg {
+  padding: $space-l;
+}

@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 
 export const ApiErrorContext = createContext();
 
+const API_HEADER_MESSAGE_DISPLAY_TIME = 4000;
+
 const ApiErrorContextProvider = ({ history, children }) => {
   // apiErrorMessage can be string or array<string>
   const [apiErrorStatus, setApiErrorStatus] = useState({
@@ -57,7 +59,7 @@ const ApiErrorContextProvider = ({ history, children }) => {
     if (apiErrorMessage) {
       timer = setTimeout(() => {
         clearError();
-      }, 4000);
+      }, API_HEADER_MESSAGE_DISPLAY_TIME);
     }
 
     return () => {

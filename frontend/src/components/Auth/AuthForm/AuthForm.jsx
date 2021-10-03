@@ -1,7 +1,7 @@
 import React from "react";
 import { routePath } from "../../../router/router";
 import StyledLink from "../../../common_components/Link/StyledLink";
-
+import Button from "../../../common_components/Button/Button";
 import { en } from "../../../utils/language";
 import "../Auth.scss";
 
@@ -36,9 +36,13 @@ const AuthForm = ({ isLogin, formAction, isLoading }) => {
           name="password"
           disabled={isLoading}
         />
-        <button className="button mt-20" type="submit" disabled={isLoading}>
-          {formTitle}
-        </button>
+        <Button
+          classnames="mt-20"
+          buttonType="submit"
+          isDisabled={isLoading}
+          buttonText={formTitle}
+          primary
+        />
         <StyledLink to={linkAddress} title={linkTitle} disabled={isLoading} />
       </form>
     </div>

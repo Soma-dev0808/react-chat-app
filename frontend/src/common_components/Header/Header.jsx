@@ -3,6 +3,7 @@ import { withRouter, useLocation, useHistory } from "react-router-dom";
 import useAuth from "../CustomHooks/useAuth";
 
 import ApiResponseBar from "./ApiResponseBar/ApiResponseBar";
+import Button from "../Button/Button";
 import { en } from "../../utils/language";
 import { routePath } from "../../router/router";
 import { signOut } from "../../components/Auth/service/service";
@@ -37,7 +38,7 @@ const Header = () => {
   };
 
   const getButtonName = useCallback(() => {
-    let authStatusButtonName = en.LOG_IN;
+    let authStatusButtonName = en.SIGN_IN;
     if (isAuth) {
       authStatusButtonName = en.LOG_OUT;
     } else if (!isAuth && location.pathname === routePath.signIn) {
@@ -52,11 +53,14 @@ const Header = () => {
       <div className="header-bar">
         <Title />
         {!isLoading && (
-          <MenuButton
-            buttonClick={handleButtonClick}
-            buttonTitle={getButtonName()}
-            diabled={isLoading}
-          />
+          <div>
+            <Button
+              isDisabled={isLoading}
+              buttonText={getButtonName()}
+              onClickEvent={handleButtonClick}
+              size={"sm"}
+            />
+          </div>
         )}
       </div>
       <ApiResponseBar />
@@ -66,14 +70,6 @@ const Header = () => {
 
 const Title = () => {
   return <h3 className="header-title">Realtime Chat App</h3>;
-};
-
-const MenuButton = ({ buttonClick, buttonTitle, disabled }) => {
-  return (
-    <button className="header-menu" onClick={buttonClick} disabled={disabled}>
-      {buttonTitle}
-    </button>
-  );
 };
 
 export default withRouter(Header);
