@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Input from "../../components/Input/Input";
+import Input from "../../components/Chat/Input/Input";
 
 describe("Input component render test", () => {
   const mockHandleInput = jest.fn();

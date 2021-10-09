@@ -49,8 +49,10 @@ export async function fetchMessages(roomName) {
 
     chats.forEach((chat) =>
       messageArray.push({
+        id: chat.id,
         user: chat.data().user,
         text: chat.data().message,
+        timeStamp: chat.data().date_created,
       })
     );
 

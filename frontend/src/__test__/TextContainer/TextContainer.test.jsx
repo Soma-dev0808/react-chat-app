@@ -6,25 +6,13 @@ import { getUsers } from "../utils/utilities";
 describe("TextContainer component render test", () => {
   test("render test", () => {
     const { getByText, getAllByRole, rerender } = render(<TextContainer />);
-    let headings = getAllByRole("heading");
-    expect(headings.length).toBe(3);
-
-    const headingTitles = [
-      "Realtime Chat Application💬",
-      "Created with React, Express, Node and Socket.IO🌟",
-      "Try it out right now!⬅️",
-    ];
-
-    for (let i = 0; i < headings.length; i++) {
-      expect(headings[i].textContent).toBe(headingTitles[i]);
-    }
 
     // render with users(1 user)
     let users = getUsers();
     rerender(<TextContainer users={users} />);
 
-    headings = getAllByRole("heading");
-    expect(headings.length).toBe(5);
+    let headings = getAllByRole("heading");
+    expect(headings.length).toBe(2);
 
     // check if all users passed were rendered
     users.forEach(({ name }) => {

@@ -1,4 +1,4 @@
-@import "../../common_components/Common.scss";
+@import "../../../common_components/Common.scss";
 
 .messages {
   padding: 2% 0;
@@ -31,6 +31,21 @@
   animation: outAnimation 270ms ease-out;
   animation-fill-mode: forwards;
   display: none;
+}
+
+.date-label-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: $space-s 0;
+}
+
+.date-label {
+  color: #0000007d;
+  padding: $p-m;
+  text-align: center;
+  border-bottom: 1px solid #5c5b5b7d;
+  width: 60%;
 }
 
 @keyframes inAnimation {

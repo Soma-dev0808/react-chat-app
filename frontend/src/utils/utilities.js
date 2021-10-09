@@ -1,5 +1,6 @@
 import en from "./constants";
 import qs from "qs";
+import firebase from "firebase/app";
 
 /**
  * Convert Firebase api response
@@ -115,4 +116,43 @@ export const validateEmptyString = (values, errorMessages, setAPIError) => {
 
     return errArr.length === 0;
   }
+};
+
+/**
+ * Get firebase timestamp
+ */
+export const getFBTimeStamp = () => {
+  return firebase.firestore.FieldValue.serverTimestamp();
+};
+
+/**
+ * Generate unique key
+ * @param {string|number} data
+ */
+export const generateKey = (data) => {
+  return data ? data + new Date().getTime() : new Date().getTime();
+};
+
+/**
+ * convert timestamp to time
+ * @param {object} fbTimeStamp
+ */
+export const convertTsToTime = (fbTimeStamp) => {
+  if (!fbTimeStamp) return;
+
+  const date = fbTimeStamp.toDate();
+  const hr = new Date(date)?.getHours();
+  const mins = new Date(date)?.getMinutes();
+
+  return _adjustTimeString(hr) + ":" + _adjustTimeString(mins);
+};
+
+/**
+ * add zero if length of parameter is 1. (ex, 1 -> 01)
+ * @param {number} timeNum
+ */
+const _adjustTimeString = (timeNum) => {
+  if (timeNum >= 10) return String(timeNum);
+
+  return "0" + String(timeNum);
 };

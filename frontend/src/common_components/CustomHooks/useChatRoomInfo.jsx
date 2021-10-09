@@ -46,7 +46,7 @@ const useChatRoomInfo = (room) => {
 
     // set messages stored in FB
     const storedMessages = res2.value;
-    setMessages((prev) => prev.concat(...storedMessages));
+    setMessages(storedMessages);
 
     startOrEndCallApi(false);
   }, [room, startOrEndCallApi, setAPIError]);
