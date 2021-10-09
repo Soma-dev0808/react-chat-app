@@ -19,6 +19,7 @@ const AuthForm = ({ isLogin, formAction, isLoading }) => {
             className="join-input mb-20"
             type="text"
             name="username"
+            maxLength={8}
             disabled={isLoading}
           />
         )}

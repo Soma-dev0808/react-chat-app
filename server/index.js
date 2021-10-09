@@ -54,7 +54,14 @@ io.on("connection", (socket) => {
       return callback(errorMessage);
     }
 
-    io.to(user.room).emit("message", { user: user.name, text: message });
+    const today = new Date();
+    const currentTime = today.getHours() + ":" + today.getMinutes();
+
+    io.to(user.room).emit("message", {
+      user: user.name,
+      text: message,
+      timeStamp: currentTime,
+    });
     io.to(user.room).emit("roomData", {
       room: user.room,
       users: getUsersInRoom(user.room),

@@ -1,9 +1,15 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import Message from "./Message/Message";
 
-import { classNames } from "../../utils/utilities";
+import {
+  classNames,
+  generateKey,
+  convertTsToTime,
+} from "../../../utils/utilities";
 
 import "./Messages.scss";
+
+let prevDate = "";
 
 const Messages = ({ messages, name }) => {
   const [isBottom, setIsBottom] = useState(true);
@@ -35,11 +41,29 @@ const Messages = ({ messages, name }) => {
 
   return (
     <div className="messages" onScroll={handleOnScroll}>
-      {messages.map((message, i) => (
-        <div key={i}>
-          <Message message={message} name={name} />
-        </div>
-      ))}
+      {messages.map((message, i) => {
+        let dateLabel = "";
+
+        if (typeof message?.timeStamp === "object") {
+          const ts = message.timeStamp;
+
+          const convertedTime = convertTsToTime(ts);
+          message.timeStamp = convertedTime;
+
+          // Set date information.
+          const _timeStamp = new Date(ts?.toDate())?.toLocaleDateString();
+          if (prevDate !== _timeStamp) {
+            dateLabel = _timeStamp;
+            prevDate = dateLabel;
+          }
+        }
+
+        return (
+          <div key={message.id || generateKey(i)}>
+            <Message message={message} name={name} dateLabel={dateLabel} />
+          </div>
+        );
+      })}
       <div ref={bottomRef} />
       <ScrollToBottomButton
         scrollToBottom={scrollToBottom}

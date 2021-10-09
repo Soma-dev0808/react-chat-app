@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import InfoBar from "../../components/InfoBar/InfoBar";
+import InfoBar from "../../components/Chat/InfoBar/InfoBar";
 import createWrapper from "../utils/createWrapper";
 
 afterEach(cleanup);

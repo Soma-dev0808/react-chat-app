@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import Messages from "../../components/Messages/Messages";
+import Messages from "../../components/Chat/Messages/Messages";
 import { getMessages, mockScrollProp } from "../utils/utilities";
 
 afterEach(cleanup);

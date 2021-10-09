@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { Prompt } from "react-router-dom";
 import io from "socket.io-client";
 
-import InfoBar from "../InfoBar/InfoBar";
-import Input from "../Input/Input";
-import Messages from "../Messages/Messages";
+import InfoBar from "./InfoBar/InfoBar";
+import Input from "./Input/Input";
+import Messages from "./Messages/Messages";
 import TextContainer from "../TextContainer/TextContainer";
 import LoadingIndicator from "../../common_components/LoadingIndicator/LoadingIndicator";
 
