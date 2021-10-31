@@ -41,7 +41,7 @@ describe("App component render test", () => {
   test("form submit test", async () => {
     // render component with loading indicator(show loading)
     const mockUserName = "test-user";
-    useAuth.mockReturnValueOnce({
+    useAuth.mockReturnValue({
       isAuth: false,
       isLoading: true,
       username: mockUserName,

@@ -12,11 +12,15 @@ const en = {
   LAUNCH_ROOM_TITLE: "Launch Room",
   LAUNCH_ROOM_BUTTON_TITLE: "Launch Room",
   LAUNCH_ROOM_LINK_TITLE: "Already have a room?",
+  JOIN_TITLE: "Join",
   JOIN_ROOM_TITLE: "Join Room",
   JOIN_ROOM_BUTTON_TITLE: "Join Room",
   JOIN_ROOM_LINK_TITLE: "If you don't have a room yet create it here",
   ROOM_USERNAME_PLACEHOLDER: "Name",
   ROOMNAME_PLACEHOLDER: "Room Name",
+  FIND_ROOMS: "Find Room",
+  CLOSE: "Close",
+  LOAD_MORE: "Load More",
 };
 
 export { en };

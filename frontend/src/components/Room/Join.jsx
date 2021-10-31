@@ -1,5 +1,4 @@
 import React from "react";
-
 import Room from "./Room";
 import { joinRoomService } from "./service/service";
 

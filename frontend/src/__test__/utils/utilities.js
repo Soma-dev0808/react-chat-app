@@ -16,10 +16,20 @@ const getMessages = (nums = 1, firstPersonName = "test") => {
     if (i % 2 == 0) {
       user = "other";
     }
-    messages.push({
+
+    const messageObj = {
       text: `test-${i}`,
       user,
-    });
+    };
+
+    // Add time stamp to some messsage
+    if (i % 3 == 0) {
+      messageObj.timeStamp = {
+        toDate: () => new Date(),
+      };
+    }
+
+    messages.push(messageObj);
   }
 
   return messages;
@@ -82,6 +92,19 @@ const getAuthFormValue = (isSignIn = false) =>
         },
       };
 
+const generateDummyRooms = (numOfItems) => {
+  const rooms = [];
+  for (let i = 0; i < numOfItems; i++) {
+    rooms.push({
+      date_created: { seconds: new Date().getTime() + i },
+      roomName: `test-room-${i}`,
+      users: new Array(i),
+    });
+  }
+
+  return rooms;
+};
+
 export {
   flushPromises,
   getErrorMessages,
@@ -89,4 +112,5 @@ export {
   mockScrollProp,
   getUsers,
   getAuthFormValue,
+  generateDummyRooms,
 };

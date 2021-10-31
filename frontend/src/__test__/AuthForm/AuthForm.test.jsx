@@ -40,7 +40,7 @@ describe("Auth Form test", () => {
       e.preventDefault();
     });
 
-    const { rerender, getByRole, getByPlaceholderText } = render(
+    const { getByRole, getByPlaceholderText } = render(
       <AuthForm
         isLogin={false}
         formAction={mockFormAction}
