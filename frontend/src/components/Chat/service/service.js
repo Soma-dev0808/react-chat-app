@@ -75,7 +75,5 @@ export async function saveMessages({ message, room, username }) {
       date_created: firebase.firestore.FieldValue.serverTimestamp(),
     })
     .then(() => convertFBApiResponse())
-    .catch((err) => {
-      return convertFBApiResponse(false, updateMessageError);
-    });
+    .catch((err) => convertFBApiResponse(false, updateMessageError));
 }

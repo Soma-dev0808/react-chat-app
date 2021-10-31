@@ -11,6 +11,7 @@ const Button = ({
   isDisabled = false,
   onClickEvent = () => {},
   buttonText = "",
+  isLoading = false,
 }) => {
   const _classnames = classNames(
     "custom-button",
@@ -29,7 +30,11 @@ const Button = ({
       disabled={isDisabled}
       onClick={onClickEvent}
     >
-      {buttonText}
+      {isLoading ? (
+        <div className="button-loading-indicator"></div>
+      ) : (
+        buttonText
+      )}
     </button>
   );
 };

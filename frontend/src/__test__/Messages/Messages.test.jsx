@@ -2,6 +2,7 @@ import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import Messages from "../../components/Chat/Messages/Messages";
 import { getMessages, mockScrollProp } from "../utils/utilities";
+import { scrollToBottom } from "../../utils/utilities";
 
 afterEach(cleanup);
 
@@ -63,6 +64,8 @@ describe("Messages component render test", () => {
       "scroll-to-bottom-button show-bottom-button"
     );
 
+    fireEvent.click(getByRole("button"));
+
     Object.defineProperties(window.HTMLElement.prototype, mockScrollProp(true));
 
     fireEvent.scroll(chatBox.item(0), {
@@ -72,5 +75,14 @@ describe("Messages component render test", () => {
     expect(scrollButton.className).toBe(
       "scroll-to-bottom-button hide-bottom-button"
     );
+  });
+
+  test("Scroll to bottom test", () => {
+    const positionRef = {
+      current: {
+        scrollIntoView: jest.fn(),
+      },
+    };
+    scrollToBottom(positionRef);
   });
 });

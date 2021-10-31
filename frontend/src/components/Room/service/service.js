@@ -1,9 +1,45 @@
+import firebase from "firebase/app";
 import { db, auth } from "../../../service/firebase";
 import {
   convertFBApiResponse,
   retrieveFBErrorMessage,
 } from "../../../utils/utilities";
 import en from "../../../utils/constants";
+
+// Fetch existing room list
+export async function fetchRoomList(listFetchLimit, nextRef) {
+  const roomList = [];
+  // if there's nextRef, add startAfter
+  const currList = nextRef
+    ? db
+        .collection(en.rooms)
+        .orderBy(en.dateCreated)
+        .startAfter(nextRef)
+        .limit(listFetchLimit)
+    : db.collection(en.rooms).orderBy(en.dateCreated).limit(listFetchLimit);
+
+  try {
+    const snapshot = await currList.get();
+    if (snapshot.empty) {
+      return convertFBApiResponse(true, { roomList, nextRef: -1 });
+    }
+
+    snapshot.docs.forEach((item) => {
+      if (item.exists) {
+        roomList.push(item.data());
+      }
+    });
+
+    // if data in firestore is less than 10, should stop fetch next time
+    const lastFetchedItem =
+      snapshot.docs.length === listFetchLimit
+        ? snapshot.docs[snapshot.docs.length - 1]
+        : -1;
+    return convertFBApiResponse(true, { roomList, nextRef: lastFetchedItem });
+  } catch (err) {
+    return convertFBApiResponse(false, retrieveFBErrorMessage(err));
+  }
+}
 
 // Create a new room
 export async function launchRoomService({ username, roomName }) {
@@ -25,6 +61,7 @@ export async function launchRoomService({ username, roomName }) {
         },
       ],
       roomName,
+      date_created: firebase.firestore.FieldValue.serverTimestamp(),
     })
     .then(() => convertFBApiResponse())
     .catch((err) => convertFBApiResponse(false, retrieveFBErrorMessage(err)));
@@ -40,6 +77,7 @@ export async function joinRoomService({ username, roomName }) {
     }
 
     const usersArray = await checkRoom.data().users;
+    const dateCreated = await checkRoom.data().date_created;
 
     const user = await checkRoom
       .data()
@@ -62,6 +100,7 @@ export async function joinRoomService({ username, roomName }) {
             },
           ],
           roomName,
+          date_created: dateCreated,
         })
         .then(() => convertFBApiResponse())
         .catch((err) =>

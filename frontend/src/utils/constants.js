@@ -7,9 +7,11 @@ const constants = {
   dbChatCollection: "chats",
   dbOrderByCreatedDate: "date_created",
   ascOrder: "asc",
+  descOrder: "desc",
   // firestore collenction or document names
   rooms: "rooms",
   usernames: "usernames",
+  dateCreated: "date_created",
   // socket.io
   socketJoin: "join",
   socketMessage: "message",
@@ -24,7 +26,8 @@ const constants = {
   createRoomError: "Creatting Room Error",
   updateMessageError: "Update Message Error",
   fetchMessageError: "FetchMessageError",
-  joinRoomError: "Something wrong happen with the system",
+  joinRoomError:
+    "Something wrong happen with the system while joinning the room",
   userNameExistsError: "This user name is taken",
   undefinedErrorMessage: "Undefined error",
   retrievingUsernameError: "There's probrem with retrieving username",

@@ -156,3 +156,34 @@ const _adjustTimeString = (timeNum) => {
 
   return "0" + String(timeNum);
 };
+
+/**
+ * add zero if length of parameter is 1. (ex, 1 -> 01)
+ * @param {object} e
+ * @param {Function} bottomActionCB
+ * @param {Function} topActionCB
+ */
+export const handleScroll = (e, bottomActionCB = null, topActionCB = null) => {
+  const { scrollHeight, scrollTop, clientHeight } = e.target;
+
+  if (scrollHeight && scrollTop && clientHeight) {
+    const _isBottom = scrollHeight - scrollTop <= clientHeight + 5;
+    // when reached bottom, excute call back.
+    bottomActionCB && bottomActionCB(_isBottom);
+  }
+
+  // triggered when scroll position is at top
+  if (scrollTop === 0) {
+    topActionCB && topActionCB(scrollTop === 0);
+  }
+};
+
+/**
+ * Scroll to target position
+ * @param {object} positionRef
+ */
+export const scrollToBottom = (positionRef, scrollOption) => {
+  if (positionRef?.current?.scrollIntoView) {
+    positionRef.current.scrollIntoView(scrollOption);
+  }
+};
