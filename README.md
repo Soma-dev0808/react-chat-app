@@ -5,7 +5,7 @@
 Real time chat app allows user to communicate with other users and check realtime status of other users in the same chat room, built with React, Redux, JavaScript, and CSS.
 
 ### Project Screen Shot(s)
-![image](https://user-images.githubusercontent.com/55787141/152980902-0dab9c71-030b-4619-b766-43a78b279e8f.png =250x250)
+![image](https://user-images.githubusercontent.com/55787141/152980902-0dab9c71-030b-4619-b766-43a78b279e8f.png | width=100)
 
 ![image](https://user-images.githubusercontent.com/55787141/152981084-35b66b8e-8431-4c43-b320-4be48b8d44d2.png =250x250)
 
