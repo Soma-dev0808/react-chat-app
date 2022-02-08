@@ -4,7 +4,7 @@ import {
   retrieveFBErrorMessage,
 } from "../../../utils/utilities";
 import { routePath } from "../../../router/router";
-import en from "../../../utils/constants";
+import { en } from "../../../utils/language";
 
 // call sign up or sign in function with user input
 export async function handleSubmit(
@@ -34,7 +34,7 @@ export async function handleSubmit(
 export async function signUp({ username, email, password }) {
   const hasduplicate = await checkUsernameDuplication(username);
   if (!hasduplicate) {
-    return convertFBApiResponse(false, en.userNameExistsError);
+    return convertFBApiResponse(false, en.USERNAME_EXISTS_ERROR);
   }
   return auth
     .createUserWithEmailAndPassword(email, password)
@@ -42,7 +42,7 @@ export async function signUp({ username, email, password }) {
       const uid = res.user.uid;
 
       // set username
-      await db.collection(en.usernames).doc(uid).set({
+      await db.collection(en.USERNAMES).doc(uid).set({
         username,
       });
 
@@ -67,7 +67,7 @@ export async function signOut() {
 
 // check username is already taken. If not, return true
 async function checkUsernameDuplication(username) {
-  const usernames = await db.collection(en.usernames).get();
+  const usernames = await db.collection(en.USERNAMES).get();
 
   const res = await usernames.query.where("username", "==", username).get();
 

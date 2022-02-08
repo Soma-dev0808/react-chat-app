@@ -4,7 +4,7 @@ import {
   convertFBApiResponse,
   retrieveFBErrorMessage,
 } from "../../../utils/utilities";
-import en from "../../../utils/constants";
+import { en } from "../../../utils/language";
 
 // Fetch existing room list
 export async function fetchRoomList(listFetchLimit, nextRef) {
@@ -12,11 +12,11 @@ export async function fetchRoomList(listFetchLimit, nextRef) {
   // if there's nextRef, add startAfter
   const currList = nextRef
     ? db
-        .collection(en.rooms)
-        .orderBy(en.dateCreated)
+        .collection(en.ROOMS)
+        .orderBy(en.DATE_CREATED)
         .startAfter(nextRef)
         .limit(listFetchLimit)
-    : db.collection(en.rooms).orderBy(en.dateCreated).limit(listFetchLimit);
+    : db.collection(en.ROOMS).orderBy(en.DATE_CREATED).limit(listFetchLimit);
 
   try {
     const snapshot = await currList.get();
@@ -43,15 +43,15 @@ export async function fetchRoomList(listFetchLimit, nextRef) {
 
 // Create a new room
 export async function launchRoomService({ username, roomName }) {
-  const checkRoom = await db.collection(en.rooms).doc(roomName).get();
+  const checkRoom = await db.collection(en.ROOMS).doc(roomName).get();
 
   // room is already exists
   if (checkRoom.exists) {
-    return convertFBApiResponse(false, en.roomAlreadyExixtsError);
+    return convertFBApiResponse(false, en.ROOM_ALREADY_EXISTS_ERROR);
   }
 
   return db
-    .collection(en.rooms)
+    .collection(en.ROOMS)
     .doc(roomName)
     .set({
       users: [
@@ -69,11 +69,11 @@ export async function launchRoomService({ username, roomName }) {
 
 export async function joinRoomService({ username, roomName }) {
   try {
-    const checkRoom = await db.collection(en.rooms).doc(roomName).get();
+    const checkRoom = await db.collection(en.ROOMS).doc(roomName).get();
 
     // There's no room found
     if (!checkRoom.exists) {
-      return convertFBApiResponse(false, en.roomNotExsistsError);
+      return convertFBApiResponse(false, en.ROOM_NOT_EXISTS_ERROR);
     }
 
     const usersArray = await checkRoom.data().users;
@@ -89,7 +89,7 @@ export async function joinRoomService({ username, roomName }) {
       return convertFBApiResponse();
     } else {
       return db
-        .collection(en.rooms)
+        .collection(en.ROOMS)
         .doc(roomName)
         .set({
           users: [

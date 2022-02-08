@@ -1,16 +1,19 @@
 import firebase from "firebase/app";
 import { db, auth } from "../../../service/firebase";
-import constants from "../../../utils/constants";
+import { en } from "../../../utils/language";
 import { convertFBApiResponse } from "../../../utils/utilities";
 
 export async function fetchUser(roomName) {
-  const { dbRoomCollection, roomNotExsistsError, fetchUserError } = constants;
+  const { DB_ROOM_COLLECTION, ROOM_NOT_EXISTS_ERROR, FETCH_USER_ERROR } = en;
 
   try {
-    const checkRoom = await db.collection(dbRoomCollection).doc(roomName).get();
+    const checkRoom = await db
+      .collection(DB_ROOM_COLLECTION)
+      .doc(roomName)
+      .get();
 
     if (!checkRoom.exists) {
-      return convertFBApiResponse(false, roomNotExsistsError);
+      return convertFBApiResponse(false, ROOM_NOT_EXISTS_ERROR);
     }
 
     const user = await checkRoom
@@ -20,25 +23,25 @@ export async function fetchUser(roomName) {
     // Save user name to reducer
     return convertFBApiResponse(true, user);
   } catch (error) {
-    return convertFBApiResponse(false, fetchUserError);
+    return convertFBApiResponse(false, FETCH_USER_ERROR);
   }
 }
 
 export async function fetchMessages(roomName) {
   const {
-    dbRoomCollection,
-    dbChatCollection,
-    dbOrderByCreatedDate,
-    ascOrder,
-    fetchMessageError,
-  } = constants;
+    DB_ROOM_COLLECTION,
+    DB_CHAT_COLLECTION,
+    DB_ORDER_BY_CREATED_DATE,
+    ASC_ORDER,
+    FETCH_MESSAGE_ERROR,
+  } = en;
 
   try {
     const chats = await db
-      .collection(dbRoomCollection)
+      .collection(DB_ROOM_COLLECTION)
       .doc(roomName)
-      .collection(dbChatCollection)
-      .orderBy(dbOrderByCreatedDate, ascOrder)
+      .collection(DB_CHAT_COLLECTION)
+      .orderBy(DB_ORDER_BY_CREATED_DATE, ASC_ORDER)
       .get();
 
     let messageArray = [];
@@ -58,22 +61,22 @@ export async function fetchMessages(roomName) {
 
     return convertFBApiResponse(true, messageArray);
   } catch (error) {
-    return convertFBApiResponse(false, fetchMessageError);
+    return convertFBApiResponse(false, FETCH_MESSAGE_ERROR);
   }
 }
 
 export async function saveMessages({ message, room, username }) {
-  const { dbRoomCollection, dbChatCollection, updateMessageError } = constants;
+  const { DB_ROOM_COLLECTION, DB_CHAT_COLLECTION, UPDATE_MESSAGE_ERROR } = en;
 
   return db
-    .collection(dbRoomCollection)
+    .collection(DB_ROOM_COLLECTION)
     .doc(room)
-    .collection(dbChatCollection)
+    .collection(DB_CHAT_COLLECTION)
     .add({
       message,
       user: username,
       date_created: firebase.firestore.FieldValue.serverTimestamp(),
     })
     .then(() => convertFBApiResponse())
-    .catch((err) => convertFBApiResponse(false, updateMessageError));
+    .catch((err) => convertFBApiResponse(false, UPDATE_MESSAGE_ERROR));
 }

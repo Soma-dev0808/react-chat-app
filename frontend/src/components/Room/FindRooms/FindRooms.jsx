@@ -12,7 +12,6 @@ import {
   createUrlWithQueryString,
 } from "../../../utils/utilities";
 import { en } from "../../../utils/language";
-import constants from "../../../utils/constants";
 import { routePath } from "../../../router/router";
 
 import "../Room.scss";
@@ -54,7 +53,7 @@ const FindRooms = ({ handleClose }) => {
         setAPIError(res.errorMessage);
       }
     } catch (error) {
-      setAPIError(constants.joinRoomError);
+      setAPIError(en.JOIN_ROOM_ERROR);
     }
   };
 

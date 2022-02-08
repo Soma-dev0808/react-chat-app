@@ -1,4 +1,4 @@
-import en from "./constants";
+import { en } from "./language";
 import qs from "qs";
 import firebase from "firebase/app";
 
@@ -24,7 +24,7 @@ export const convertFBApiResponse = (isSuccess = true, content = null) => {
  * @param {object} err
  */
 export const retrieveFBErrorMessage = (err) => {
-  return err?.message ? err.message : en.undefinedErrorMessage;
+  return err?.message ? err.message : en.UNDEFINED_ERROR;
 };
 
 /**
