@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { auth, db } from "../../service/firebase";
-import en from "../../utils/constants";
+import { en } from "../../utils/language";
 
 const useAuth = () => {
   const [authInfo, setAuthInfo] = useState({
@@ -14,7 +14,7 @@ const useAuth = () => {
       if (user) {
         // set username and isAuth
         const uid = user.uid;
-        const usernameField = await db.collection(en.usernames).doc(uid).get();
+        const usernameField = await db.collection(en.USERNAMES).doc(uid).get();
         if (usernameField.exists) {
           const username = usernameField.data().username;
           setAuthInfo({

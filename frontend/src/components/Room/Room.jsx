@@ -9,7 +9,7 @@ import {
   createUrlWithQueryString,
   validateEmptyString,
 } from "../../utils/utilities";
-import en from "../../utils/constants";
+import { en } from "../../utils/language";
 
 import "./Room.scss";
 
@@ -29,7 +29,7 @@ const Room = ({ history, submitAction, isJoin = true }) => {
     const roomName = e.target.roomName.value;
     if (
       username &&
-      validateEmptyString([roomName], [en.requireRoomNameError], setAPIError)
+      validateEmptyString([roomName], [en.REQUIRE_ROOM_NAME_ERROR], setAPIError)
     ) {
       submitAction(username, roomName, (res) => {
         if (res.isSuccess) {

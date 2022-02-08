@@ -5,7 +5,7 @@ import {
 } from "../../components/Chat/service/service";
 import { ApiErrorContext } from "../ApiErrorContext/ApiErrorContextProvider";
 import { routePath } from "../../router/router";
-import en from "../../utils/constants";
+import { en } from "../../utils/language";
 
 // Get chat room information from firebase using room name.
 const useChatRoomInfo = (room) => {
@@ -36,7 +36,7 @@ const useChatRoomInfo = (room) => {
 
     // if there's no user added in the chat room
     if (!res1.value?.name) {
-      setAPIError(en.userNotFoundInChatError, routePath.selectRoom);
+      setAPIError(en.USER_NOT_FOUND_IN_CHAT, routePath.selectRoom);
 
       return;
     }

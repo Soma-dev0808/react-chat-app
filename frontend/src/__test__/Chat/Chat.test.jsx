@@ -9,7 +9,7 @@ import {
 } from "../../components/Chat/service/service";
 import { getMessages } from "../utils/utilities";
 import { routePath } from "../../router/router";
-import en from "../../utils/constants";
+import { en } from "../../utils/language";
 import io from "socket.io-client";
 
 const { wrapper, history, mockValues } = createWrapper();
@@ -139,7 +139,7 @@ describe("Chat component render test", () => {
     await act(() => promise2);
 
     expect(mockValues.setAPIError).toHaveBeenCalledWith(
-      en.userNotFoundInChatError,
+      en.USER_NOT_FOUND_IN_CHAT,
       routePath.selectRoom
     );
   });
@@ -184,12 +184,12 @@ describe("Chat component render test", () => {
     await act(() => promise2);
 
     expect(emit).toHaveBeenCalledWith(
-      en.socketJoin,
+      en.SOCKET_JOIN,
       { username: mockUsername, room: mockRoomName },
       expect.any(Function)
     );
 
-    expect(on).toHaveBeenCalledWith(en.socketMessage, expect.any(Function));
+    expect(on).toHaveBeenCalledWith(en.SOCKET_MESSAGE, expect.any(Function));
   });
 
   test("send message test", async () => {

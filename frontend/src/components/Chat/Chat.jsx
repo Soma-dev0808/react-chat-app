@@ -12,7 +12,7 @@ import useChatRoomInfo from "../../common_components/CustomHooks/useChatRoomInfo
 import useRoomName from "../../common_components/CustomHooks/useRoomName";
 import { saveMessages } from "./service/service";
 import { ApiErrorContext } from "../../common_components/ApiErrorContext/ApiErrorContextProvider";
-import en from "../../utils/constants";
+import { en } from "../../utils/language";
 
 import "./Chat.scss";
 
@@ -35,7 +35,7 @@ const Chat = (props) => {
   useEffect(() => {
     socket = io(ENDPOINT);
     if (username && room) {
-      socket.emit(en.socketJoin, { username, room }, (err) => {
+      socket.emit(en.SOCKET_JOIN, { username, room }, (err) => {
         if (err) {
           setAPIError(err.err);
         }
@@ -46,11 +46,11 @@ const Chat = (props) => {
   // Start listening message from server and room data
   useEffect(() => {
     if (username) {
-      socket.on(en.socketMessage, (message) => {
+      socket.on(en.SOCKET_MESSAGE, (message) => {
         setMessages((prev) => prev.concat(message));
       });
 
-      socket.on(en.socketRoomData, ({ users }) => {
+      socket.on(en.SOCKET_ROOM_DATA, ({ users }) => {
         setUsers(users);
       });
     }
@@ -59,13 +59,13 @@ const Chat = (props) => {
   useEffect(() => {
     window.onbeforeunload = function (e) {
       e.preventDefault();
-      socket.emit(en.socketDisconnected);
+      socket.emit(en.SOCKET_DISSCONNECTED);
       socket.off();
     };
 
     // clean up
     return () => {
-      socket.emit(en.socketDisconnected);
+      socket.emit(en.SOCKET_DISSCONNECTED);
       socket.off();
       window.onbeforeunload = null;
     };
@@ -75,7 +75,7 @@ const Chat = (props) => {
   const sendMessage = async (event) => {
     event.preventDefault();
     if (message && room && username) {
-      socket.emit(en.socketSendMessage, message, (err) => {
+      socket.emit(en.SOCKET_SEND_MESSAGE, message, (err) => {
         if (err) {
           setAPIError(err);
         } else {
@@ -109,7 +109,7 @@ const Chat = (props) => {
         </div>
       </div>
       <LoadingIndicator isLoading={isApiLoading} />
-      <Prompt message={en.confirmLeavePageMessage} />
+      <Prompt message={en.CONFIRM_LEAVE_PAGE_MESSAGE} />
     </>
   );
 };

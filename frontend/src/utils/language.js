@@ -1,4 +1,46 @@
-const en = {
+export const en = {
+  APP_TITLE: "RealTime Chat App",
+
+  // page constants
+  CONFIRM_LEAVE_PAGE_TITLE: "Leave this page?",
+  CONFIRM_LEAVE_PAGE_MESSAGE: "Do you want to leave this page?",
+  // firestore
+  DB_ROOM_COLLECTION: "rooms",
+  DB_CHAT_COLLECTION: "chats",
+  DB_ORDER_BY_CREATED_DATE: "date_created",
+  ASC_ORDER: "asc",
+  DESC_ORDER: "desc",
+  // firestore collenction or document names
+  ROOMS: "rooms",
+  USERNAME: "username",
+  USERNAMES: "usernames",
+  DATE_CREATED: "date_created",
+  // socket.io
+  SOCKET_JOIN: "join",
+  SOCKET_MESSAGE: "message",
+  SOCKET_ROOM_DATA: "roomData",
+  SOCKET_DISSCONNECTED: "disconnected",
+  SOCKET_SEND_MESSAGE: "sendMessage",
+  // Error messagess
+  FETCH_USER_ERROR: "Fetch User Error",
+  FETCH_DATA_ERROR: "There's something wrong with fetching data",
+  ROOM_ALREADY_EXISTS_ERROR: "Room is already exist",
+  ROOM_NOT_EXISTS_ERROR: "Room does not exists",
+  ROOM_NAME_ALREADY_EXISTS_ERROR: "This room name is already taken",
+  CREATE_ROOM_ERROR: "Creatting Room Error",
+  UPDATE_MESSAGE_ERROR: "Update Message Error",
+  FETCH_MESSAGE_ERROR: "FetchMessageError",
+  JOIN_ROOM_ERROR:
+    "Something wrong happen with the system while joinning the room",
+  USERNAME_EXISTS_ERROR: "This user name is taken",
+  UNDEFINED_ERROR: "Undefined error",
+  RETRIEVE_USERNAME_ERROR: "There's probrem with retrieving username",
+  USER_NOT_FOUND_IN_CHAT:
+    "Your username were not found in the chat room, please re-join this room again.",
+  REQUIRE_ROOM_NAME_ERROR: "Room name is required.",
+  NO_EMAIL_OR_PASSWORD_SYSERROR:
+    "System error email or password are null or undefined",
+  // Page labels
   SIGN_IN: "Sign In",
   SIGN_UP: "Sign Up",
   LOG_IN: "Log In",
@@ -21,6 +63,7 @@ const en = {
   FIND_ROOMS: "Find Room",
   CLOSE: "Close",
   LOAD_MORE: "Load More",
+  CURR_CHATTING_USERS: "People currently chatting: ",
 };
 
 export { en };
