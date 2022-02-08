@@ -32,12 +32,12 @@ To Run Test Suite:
 
 To Start Server:
 
--- frontend -- 
+-- frontend --  <br>
 `cd frontend` 
 
 `npm run start`
 
--- server -- 
+-- server -- <br>
 `cd ..` 
 
 `cd server` 
