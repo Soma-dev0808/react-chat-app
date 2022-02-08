@@ -2,7 +2,7 @@
 
 #### About this app:
  
-Real time chat app allows user to communicate with other users and check realtime status of other users in the same chat room, built with React, Redux, JavaScript, and CSS.
+Real time chat app allows user to communicate with other users and check realtime status of other users in the same chat room, built with React, React-Context, JavaScript, and CSS.
 
 ### Project Screen Shot(s)
 
@@ -14,9 +14,6 @@ Real time chat app allows user to communicate with other users and check realtim
  <img src="https://user-images.githubusercontent.com/55787141/152981225-d8d79254-97b3-4e5a-b747-59e925a1c739.png" width="450">
 </div>
 
-
-
-
 ## Installation and Setup Instructions
 
 Grab firebase app configuration below and place them in .env file to make app able to use firestore.
@@ -25,16 +22,28 @@ Clone down this repository. You will need `node` and `npm` installed globally on
 
 Installation:
 
-`npm install`  
+`npm run setup`  
 
 To Run Test Suite:  
 
-`npm test`  
+`cd frontend` 
+
+`npm run test`  
 
 To Start Server:
 
-`npm start`  
+-- frontend -- 
+`cd frontend` 
 
-To Visit App:
+`npm run start`
+
+-- server -- 
+`cd ..` 
+
+`cd server` 
+
+`npm run start`
+
+To Visit App: 
 
 `localhost:3000/`  
